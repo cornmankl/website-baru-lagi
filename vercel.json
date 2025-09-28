@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "name": "cornman-ecommerce",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/webhooks/(.*)",
+      "dest": "/api/webhooks/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/admin/$1"
+    },
+    {
+      "src": "/products/(.*)",
+      "dest": "/products/$1"
+    },
+    {
+      "src": "/checkout",
+      "dest": "/checkout"
+    },
+    {
+      "src": "/login",
+      "dest": "/login"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "functions": {
+    "api/webhooks/**/*": {
+      "maxDuration": 30
+    },
+    "api/**/*": {
+      "maxDuration": 10
+    }
+  },
+  "crons": []
+}
