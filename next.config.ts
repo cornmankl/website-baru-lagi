@@ -103,9 +103,6 @@ const nextConfig: NextConfig = {
   // React strict mode for better development experience
   reactStrictMode: true,
 
-  // Output configuration for standalone builds
-  output: 'standalone',
-
   // Disable source maps in production for security
   productionBrowserSourceMaps: false,
 };
