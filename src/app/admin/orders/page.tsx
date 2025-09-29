@@ -43,7 +43,8 @@ import {
   Mail,
   Calendar,
   ShoppingCart,
-  Package
+  Package,
+  MessageSquare
 } from 'lucide-react'
 import { useManyChat } from '@/hooks/useManyChat'
 import { toast } from '@/hooks/use-toast'
