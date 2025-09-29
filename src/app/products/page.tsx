@@ -19,10 +19,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { 
-  Slider,
-  SliderRange,
-  SliderThumb,
-  SliderTrack,
+  Slider
 } from '@/components/ui/slider'
 import { 
   Search, 
@@ -390,13 +387,7 @@ export default function ProductsPage() {
                         max={50}
                         step={1}
                         className="w-full"
-                      >
-                        <SliderTrack>
-                          <SliderRange />
-                        </SliderTrack>
-                        <SliderThumb />
-                        <SliderThumb />
-                      </Slider>
+                      />
                       <div className="flex justify-between text-sm text-gray-600">
                         <span>RM{priceRange[0]}</span>
                         <span>RM{priceRange[1]}</span>

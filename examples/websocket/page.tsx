@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,47 +13,33 @@ type Message = {
 }
 
 export default function SocketDemo() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      text: 'WebSocket functionality is not available on Vercel due to serverless limitations.',
+      senderId: 'system',
+      timestamp: new Date().toISOString()
+    }
+  ]);
   const [inputMessage, setInputMessage] = useState('');
-  const [socket, setSocket] = useState<any>(null);
-  const [isConnected, setIsConnected] = useState(false);
-
-  useEffect(() => {
-    const socketInstance = io({
-      path: '/api/socketio',
-    });
-
-    setSocket(socketInstance);
-
-    socketInstance.on('connect', () => {
-      setIsConnected(true);
-    });
-
-    socketInstance.on('disconnect', () => {
-      setIsConnected(false);
-    });
-
-    socketInstance.on('message', (msg: Message) => {
-      setMessages(prev => [...prev, msg]);
-    });
-
-    return () => {
-      socketInstance.disconnect();
-    };
-  }, []);
+  const [isConnected] = useState(false);
 
   const sendMessage = () => {
-    if (socket && inputMessage.trim()) {
+    if (inputMessage.trim()) {
       setMessages(prev => [...prev, {
         text: inputMessage.trim(),
-        senderId: socket.id || 'user',
+        senderId: 'user',
         timestamp: new Date().toISOString()
       }]);
-      socket.emit('message', {
-        text: inputMessage.trim(),
-        senderId: socket.id || 'user',
-        timestamp: new Date().toISOString()
-      });
+      
+      // Simulate echo response
+      setTimeout(() => {
+        setMessages(prev => [...prev, {
+          text: `Echo: ${inputMessage.trim()}`,
+          senderId: 'system',
+          timestamp: new Date().toISOString()
+        }]);
+      }, 1000);
+      
       setInputMessage('');
     }
   };
@@ -70,9 +55,9 @@ export default function SocketDemo() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            WebSocket Demo
+            WebSocket Demo (Simulation)
             <span className={`text-sm px-2 py-1 rounded ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-              {isConnected ? 'Connected' : 'Disconnected'}
+              Simulated Mode
             </span>
           </CardTitle>
         </CardHeader>
@@ -107,12 +92,11 @@ export default function SocketDemo() {
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type a message..."
-              disabled={!isConnected}
               className="flex-1"
             />
             <Button 
               onClick={sendMessage} 
-              disabled={!isConnected || !inputMessage.trim()}
+              disabled={!inputMessage.trim()}
             >
               Send
             </Button>

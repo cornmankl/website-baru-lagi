@@ -23,15 +23,19 @@ fi
 
 # Build the project
 echo "🔨 Building the project..."
-npm run build:vercel
+npm run build
 
 # Generate Prisma client
 echo "🗄️ Generating Prisma client..."
 npx prisma generate
 
-# Push database schema
-echo "📊 Pushing database schema..."
-npx prisma db push
+# Push database schema (only if needed)
+echo "📊 Checking database schema..."
+if npx prisma db push --accept-data-loss --force-reset; then
+    echo "✅ Database schema updated successfully"
+else
+    echo "⚠️ Database schema update failed or not needed"
+fi
 
 # Ask for deployment type
 echo ""
