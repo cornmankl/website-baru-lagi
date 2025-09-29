@@ -55,39 +55,6 @@ const nextConfig: NextConfig = {
     return [];
   },
 
-  // Rewrites for API routes and other services
-  async rewrites() {
-    return [
-      {
-        source: '/api/socketio',
-        destination: '/api/socketio',
-      },
-    ];
-  },
-
-  // Webpack configuration for production optimization
-  webpack: (config, { dev, isServer }) => {
-    // Optimize bundle size
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        'react/jsx-runtime.js': 'react/jsx-runtime',
-        'react/jsx-dev-runtime.js': 'react/jsx-dev-runtime',
-      });
-    }
-
-    // Handle Socket.IO client in browser environment
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-
-    return config;
-  },
-
   // TypeScript configuration for production builds
   typescript: {
     // Don't ignore build errors in production
@@ -102,9 +69,6 @@ const nextConfig: NextConfig = {
 
   // React strict mode for better development experience
   reactStrictMode: true,
-
-  // Output configuration for standalone builds
-  output: 'standalone',
 
   // Disable source maps in production for security
   productionBrowserSourceMaps: false,

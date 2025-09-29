@@ -468,7 +468,7 @@ export default function PaymentsPage() {
                   </div>
                   <div>
                     <p className="text-lg font-semibold">{method.name}</p>
-                    <p className="text-2xl font-bold">{method.transactions}</p>
+                    <p className="text-2xl font-bold">{method.count}</p>
                     <p className="text-sm text-gray-500">transactions</p>
                     <p className="text-lg font-medium mt-2">{formatCurrency(method.revenue)}</p>
                     <p className="text-sm text-gray-500">revenue</p>

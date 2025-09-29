@@ -245,8 +245,8 @@ Set up deployment hooks for notifications:
 # Local build test
 npm run build
 
-# Production test locally
-npm run build:vercel && npm run start:vercel
+# Test development server
+npm run dev
 
 # Database test
 npx prisma db push

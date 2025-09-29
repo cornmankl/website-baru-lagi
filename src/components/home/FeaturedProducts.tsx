@@ -93,7 +93,7 @@ export default function FeaturedProducts() {
       productId: product.id.toString(),
       name: product.name,
       price: product.price,
-      comparePrice: product.comparePrice,
+      comparePrice: product.comparePrice || undefined,
       image: product.image,
       quantity: 1,
     })
