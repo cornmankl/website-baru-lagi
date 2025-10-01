@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cornman-ecommerce
+    runtime: node
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:./dev.db
+      - key: MANYCHAT_API_KEY
+        value: 3003801:e08684d563c15098daeb41a99fd788d3
+      - key: NEXTAUTH_SECRET
+        value: cornman-secret-key-2024
+    env: node
